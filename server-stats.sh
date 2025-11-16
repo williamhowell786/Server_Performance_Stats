@@ -1,12 +1,6 @@
-printf "CPU USAGE: "
-top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}'
-
-
-
-
-
-
-printf "\nMOST CPU INTENSIVE PROGRAMS: \n\n"
+top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print "TOTAL CPU USAGE: " 100 - $1"%"}'
+free -t | awk 'NR == 2 {printf("TOTAL MEMORY USAGE: %.2f%\n"), $3/$2*100}'
+printf "MOST CPU INTENSIVE PROGRAMS: \n"
 ps -eo cmd --sort=-%cpu | head -n 6 | awk '{print $1}'
-printf "\nMOST MEMORY INTENSIVE PROGRAMS: \n\n"
+printf "MOST MEMORY INTENSIVE PROGRAMS: \n"
 ps -eo cmd --sort=-%mem | head -n 6 | awk '{print $1}'
